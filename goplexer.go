@@ -14,11 +14,6 @@ import (
 	"gopkg.in/yaml.v2"
 )
 
-const (
-	CONNECTION_LIMIT = 32
-	DEBUG_ENABLED    = false
-)
-
 var activeConnections int64
 
 func main() {
@@ -49,7 +44,7 @@ func main() {
 	// Phase 3, start handling connections
 	for {
 		// To prevent overloading
-		for activeConnections >= CONNECTION_LIMIT {
+		for activeConnections >= int64(CurrentSettings.Server.MaxConnections) {
 			time.Sleep(time.Microsecond)
 		}
 
@@ -81,7 +76,7 @@ func lookup(buffer []byte) (string, error) {
 }
 
 func debug(i ...interface{}) {
-	if !DEBUG_ENABLED {
+	if !CurrentSettings.Server.Debug {
 		return
 	}
 
@@ -228,7 +223,9 @@ func handleConn(tcp *net.TCPConn) {
 
 type Settings struct {
 	Server struct {
-		Listen string
+		Listen         string
+		Debug          bool
+		MaxConnections int
 	}
 	Services []struct {
 		Type         string

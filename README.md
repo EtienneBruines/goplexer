@@ -18,6 +18,8 @@ configuration file:
 ```yaml
 server:
   listen: localhost:8080
+  debug: false
+  max_connections: 64
 
 services:
   - type: ssh
@@ -49,6 +51,10 @@ services:
 - A name for the service can be written in the `type` field.
 - The `location` field is the TCP-location that the service will proxy to.
 - You can configure the port at which goplexer runs in the `server.listen` field.
+- The `server.max_connections` field can be changed depending on your wishes;
+- The `server.debug` field will output lots of stuff, and might help in configuring additional services. Simply make a 
+  request to the running server using an unknown service, and analyze the output. It will probably throw an error 
+  when the service is unknown.
 
 
 ## Contributing

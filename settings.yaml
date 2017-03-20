@@ -1,5 +1,7 @@
 server:
   listen: localhost:8080
+  debug: false
+  max_connections: 64
 
 services:
   - type: ssh
