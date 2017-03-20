@@ -1,0 +1,24 @@
+server:
+  listen: localhost:8080
+
+services:
+  - type: ssh
+    keyword: ssh
+    location: localhost:22
+  - type: http
+    keyword: get
+    location: localhost:80
+  - type: https
+    keyword_bytes:
+    - 22
+      3
+      1
+      2
+      0
+      1
+      0
+      1
+      252
+      3
+      3
+    location: localhost:443
