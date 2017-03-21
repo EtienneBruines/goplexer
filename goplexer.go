@@ -29,8 +29,6 @@ func main() {
 	}
 
 	// Phase 2, start the server
-	fmt.Println("Listening on", CurrentSettings.Server.Listen)
-
 	addr, err := net.ResolveTCPAddr("tcp", CurrentSettings.Server.Listen)
 	if err != nil {
 		panic(err)
@@ -40,6 +38,8 @@ func main() {
 	if err != nil {
 		panic(err)
 	}
+
+	fmt.Println("Listening on", CurrentSettings.Server.Listen)
 
 	// Phase 3, start handling connections
 	for {
@@ -225,7 +225,7 @@ type Settings struct {
 	Server struct {
 		Listen         string
 		Debug          bool
-		MaxConnections int
+		MaxConnections int `yaml:"max_connections"`
 	}
 	Services []struct {
 		Type         string
